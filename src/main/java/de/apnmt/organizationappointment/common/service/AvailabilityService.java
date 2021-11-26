@@ -1,10 +1,10 @@
 package de.apnmt.organizationappointment.common.service;
 
+import de.apnmt.common.enumeration.Day;
 import de.apnmt.organizationappointment.common.domain.Appointment;
 import de.apnmt.organizationappointment.common.domain.ClosingTime;
 import de.apnmt.organizationappointment.common.domain.OpeningHour;
 import de.apnmt.organizationappointment.common.domain.WorkingHour;
-import de.apnmt.organizationappointment.common.domain.enumeration.Day;
 import de.apnmt.organizationappointment.common.repository.*;
 import de.apnmt.organizationappointment.common.service.dto.SlotDTO;
 import org.springframework.stereotype.Service;

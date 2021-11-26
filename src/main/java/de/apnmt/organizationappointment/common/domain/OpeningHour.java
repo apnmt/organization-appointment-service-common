@@ -1,6 +1,6 @@
 package de.apnmt.organizationappointment.common.domain;
 
-import de.apnmt.organizationappointment.common.domain.enumeration.Day;
+import de.apnmt.common.enumeration.Day;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
