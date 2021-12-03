@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 
 /**
- * REST controller for retrieving {@link de.apnmt.organizationappointment.common.service.dto.AvailabilityDTO}.
+ * REST controller for retrieving {@link de.apnmt.organizationappointment.common.service.dto.SlotDTO}.
  */
 @RestController
 @RequestMapping("/api")

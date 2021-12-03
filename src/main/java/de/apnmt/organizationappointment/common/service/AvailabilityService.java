@@ -1,6 +1,7 @@
 package de.apnmt.organizationappointment.common.service;
 
 import de.apnmt.common.enumeration.Day;
+import de.apnmt.common.errors.HttpError;
 import de.apnmt.organizationappointment.common.domain.Appointment;
 import de.apnmt.organizationappointment.common.domain.ClosingTime;
 import de.apnmt.organizationappointment.common.domain.OpeningHour;
@@ -8,6 +9,7 @@ import de.apnmt.organizationappointment.common.domain.WorkingHour;
 import de.apnmt.organizationappointment.common.repository.*;
 import de.apnmt.organizationappointment.common.service.dto.SlotDTO;
 import org.springframework.stereotype.Service;
+import org.zalando.problem.Status;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,24 +39,24 @@ public class AvailabilityService {
         List<OpeningHour> openingHours = this.openingHourRepository.findAllByOrganizationId(organizationId);
         Optional<de.apnmt.organizationappointment.common.domain.Service> service = this.serviceRepository.findById(serviceId);
         if (service.isEmpty()) {
-            throw new RuntimeException();
+            throw new HttpError(Status.NOT_FOUND, "service.not.found", "Service with id " + serviceId + " was not found");
         }
         Day day = Day.getDay(date.getDayOfWeek());
         int duration = service.get().getDuration();
-        List<LocalTime> slots = getSlots(getOpeningHours(openingHours, day), duration, date);
+        List<LocalTime> slots = this.getSlots(this.getOpeningHours(openingHours, day), duration, date);
 
         List<ClosingTime> closingTimes = this.closingTimeRepository.findAllByOrganizationId(organizationId);
-        closingTimes = filterClosingTimes(closingTimes, date);
-        slots = filterSlotsByClosingTimes(slots, closingTimes);
+        closingTimes = this.filterClosingTimes(closingTimes, date);
+        slots = this.filterSlotsByClosingTimes(slots, closingTimes);
 
-        slots = filterSlotsByWorkingHours(slots, employeeId, date);
+        slots = this.filterSlotsByWorkingHours(slots, employeeId, date);
 
         List<Appointment> appointments;
         LocalDateTime start = LocalDateTime.of(date, LocalTime.of(0, 0));
         LocalDateTime end = start.plusDays(1);
         appointments = this.appointmentRepository.findAllByOrganizationIdAndEmployeeIdAndStartAtAfterAndEndAtBefore(organizationId, employeeId, start, end);
 
-        slots = filterSlotsByAppointments(slots, appointments, duration);
+        slots = this.filterSlotsByAppointments(slots, appointments, duration);
 
         SlotDTO slot = new SlotDTO();
         slot.setTimes(slots);
