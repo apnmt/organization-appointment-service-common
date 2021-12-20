@@ -11,9 +11,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      GITHUB_USER_REF: ${{ secrets.GH_PACKAGE_REPO_USERNAME }}
-      GITHUB_TOKEN_REF: ${{ secrets.GH_PACKAGE_REPO_PASSWORD }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 11
@@ -22,8 +19,8 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-          server-username: GITHUB_USER_REF
-          server-password: GITHUB_TOKEN_REF
+          server-username: apnmt
+          server-password: ${{ github.token }}
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Cache
