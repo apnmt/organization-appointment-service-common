@@ -5,7 +5,7 @@
 
     <groupId>de.apnmt.organizationappointment</groupId>
     <artifactId>organization-appointment-service-common</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>Organization Appointment Service Common</name>
     <description>Description for Organization Appointment Service Common</description>
     <properties>

@@ -16,4 +16,6 @@ public interface WorkingHourRepository extends MongoRepository<WorkingHour, Long
 
     List<WorkingHour> findAllByEmployeeIdAndStartAtAfterAndEndAtBefore(Long employeeId, LocalDateTime startAt, LocalDateTime endAt);
 
+    void deleteAllByIdGreaterThan(Long id);
+
 }

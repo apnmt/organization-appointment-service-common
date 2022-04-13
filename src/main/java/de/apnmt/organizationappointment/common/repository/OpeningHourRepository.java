@@ -15,4 +15,6 @@ public interface OpeningHourRepository extends MongoRepository<OpeningHour, Long
 
     List<OpeningHour> findAllByOrganizationId(Long organizationId);
 
+    void deleteAllByIdGreaterThan(Long id);
+
 }

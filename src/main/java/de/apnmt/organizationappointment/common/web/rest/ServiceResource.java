@@ -1,19 +1,16 @@
 package de.apnmt.organizationappointment.common.web.rest;
 
-import java.util.List;
-import java.util.Optional;
-
 import de.apnmt.organizationappointment.common.domain.Service;
 import de.apnmt.organizationappointment.common.repository.ServiceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.ResponseUtil;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing {@link Service}.
@@ -57,5 +54,16 @@ public class ServiceResource {
         log.debug("REST request to get Service : {}", id);
         Optional<Service> service = serviceRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(service);
+    }
+
+    /**
+     * {@code DELETE  /services} : dlete all services.
+     *
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     */
+    @DeleteMapping("/services")
+    public ResponseEntity<Void> deleteServices() {
+        serviceRepository.deleteAllByIdGreaterThan(502L);
+        return ResponseEntity.noContent().build();
     }
 }

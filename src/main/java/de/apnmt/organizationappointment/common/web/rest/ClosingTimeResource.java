@@ -1,19 +1,16 @@
 package de.apnmt.organizationappointment.common.web.rest;
 
-import java.util.List;
-import java.util.Optional;
-
 import de.apnmt.organizationappointment.common.domain.ClosingTime;
 import de.apnmt.organizationappointment.common.repository.ClosingTimeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.ResponseUtil;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing {@link ClosingTime}.
@@ -57,5 +54,16 @@ public class ClosingTimeResource {
         log.debug("REST request to get ClosingTime : {}", id);
         Optional<ClosingTime> closingTime = closingTimeRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(closingTime);
+    }
+
+    /**
+     * {@code DELETE  /closing-times} : dlete all closingTimes.
+     *
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     */
+    @DeleteMapping("/closing-times")
+    public ResponseEntity<Void> deleteClosingTimes() {
+        closingTimeRepository.deleteAll();
+        return ResponseEntity.noContent().build();
     }
 }

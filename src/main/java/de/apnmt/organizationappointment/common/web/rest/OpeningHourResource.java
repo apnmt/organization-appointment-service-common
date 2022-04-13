@@ -1,19 +1,16 @@
 package de.apnmt.organizationappointment.common.web.rest;
 
-import java.util.List;
-import java.util.Optional;
-
 import de.apnmt.organizationappointment.common.domain.OpeningHour;
 import de.apnmt.organizationappointment.common.repository.OpeningHourRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.ResponseUtil;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing {@link OpeningHour}.
@@ -57,5 +54,16 @@ public class OpeningHourResource {
         log.debug("REST request to get OpeningHour : {}", id);
         Optional<OpeningHour> openingHour = openingHourRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(openingHour);
+    }
+
+    /**
+     * {@code DELETE  /opening-hours} : dlete all openingHours.
+     *
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     */
+    @DeleteMapping("/opening-hours")
+    public ResponseEntity<Void> deleteOpeningHours() {
+        openingHourRepository.deleteAllByIdGreaterThan(1255L);
+        return ResponseEntity.noContent().build();
     }
 }

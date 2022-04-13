@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ServiceRepository extends MongoRepository<Service, Long> {
+
+    void deleteAllByIdGreaterThan(Long id);
+
 }
